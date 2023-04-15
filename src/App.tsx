@@ -30,28 +30,41 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 const $progress = signal(0)
 const $currentText = signal({ id: "", text: "" })
 const $files = signal<UploadedFile[]>([])
+const $worker = signal<Tesseract.Worker>({} as Tesseract.Worker)
 
-const worker = await createWorker({
-  logger: (m) => {
-    if (m.status === "recognizing text") {
-      if (m.progress < 0.8) {
-        $progress.value = m.progress
-      } else {
-        $progress.value = 0.9999
+const getWorker = async () => {
+  const worker = await createWorker({
+    logger: (m) => {
+      if (m.status === "recognizing text") {
+        if (m.progress < 0.8) {
+          $progress.value = m.progress
+        } else {
+          $progress.value = 0.9999
+        }
+        if (m.progress === 1) {
+          setTimeout(() => {
+            $progress.value = 0
+          }, 300)
+        }
       }
-      if (m.progress === 1) {
-        setTimeout(() => {
-          $progress.value = 0
-        }, 300)
-      }
-    }
-  },
-})
+    },
+  })
 
-await worker.loadLanguage("eng")
-await worker.initialize("eng")
+  await worker.loadLanguage("eng")
+  await worker.initialize("eng")
+
+  return worker
+}
 
 export const App = () => {
+  useEffect(() => {
+    const fn = async () => {
+      const worker = await getWorker()
+      $worker.value = worker
+    }
+    fn()
+  }, [])
+
   return (
     <div className="app">
       <a
@@ -129,7 +142,7 @@ function DropZone() {
 
       for (const file of acceptedFiles) {
         Object.assign(file, {
-          ai: await worker.recognize(file),
+          ai: await $worker.value.recognize(file),
           preview: URL.createObjectURL(file),
           id: nanoid(),
         })
