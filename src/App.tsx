@@ -55,7 +55,7 @@ export const App = () => {
   return (
     <div className="app">
       <a
-        href="https://github.com/Laosing"
+        href="https://github.com/Laosing/image-to-text-converter"
         target="_blank"
         className="github-link"
       >
