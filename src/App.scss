@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+  --toastify-toast-width: 30em;
+}
+
+html,
+body,
+#root,
+.app {
+  height: 100%;
+}
+
+body {
+  padding: 1.5em;
+  background: #333;
+  font-family: "Poppins", sans-serif;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: center;
+  margin-bottom: 3em;
+  > p {
+    font-size: 14px;
+    color: #333;
+  }
+}
+
+h1 {
+  font-size: 3em;
+  line-height: 1.3;
+  margin-top: 2em;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  background: #eee;
+  padding: 1em;
+  border-radius: 1em;
+  box-shadow: 0 0 10px 0 #111;
+}
+
+.thumbsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1em 0;
+  gap: 1em;
+}
+
+.thumb {
+  display: inline-flex;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  &:hover {
+    box-shadow: 0 0 0 1px #999;
+  }
+  &.active {
+    box-shadow: 0 0 0 1px #444;
+  }
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  background: #ddd;
+}
+
+.header-icons {
+  position: absolute;
+  top: 2em;
+  display: flex;
+  align-self: center;
+  svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.github-link {
+  position: absolute;
+  z-index: 9;
+  color: #999;
+  transition: all 0.3s ease;
+  &:hover {
+    color: #666;
+  }
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.dropzone {
+  position: relative;
+  max-width: 40em;
+  cursor: pointer;
+  margin: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4.5em 5em 5em;
+  border-radius: 10px;
+  overflow: hidden;
+  outline: 2px dashed rgb(190, 190, 190);
+  background-color: #fafafa;
+  color: #999;
+  transition: all 0.24s ease-in-out;
+  &:hover:not(.disabled) {
+    outline-color: #333;
+  }
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.textarea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #999;
+    background: #eee;
+    padding: 0.5em;
+    border-radius: 10px 0 10px 0;
+    transition: background 0.3s ease;
+    cursor: pointer;
+    &:hover {
+      background: #fff;
+    }
+  }
+  textarea {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+    border: 1px solid #999;
+  }
+}
+
+.dropzone-icon {
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin: auto auto 1em;
+}
+
+.dropzone-text {
+  text-align: center;
+  z-index: 1;
+}
+
+.progress {
+  background: #dadada;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.progress-done {
+  width: 100% !important;
+}
+
+.progress-transition {
+  transition: all 0.1s ease;
+}
